@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: octank-fintech-service
+spec:
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: octank-fintech-k8s
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: octank-fintech-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: octank-fintech-k8s
+  template:
+    metadata:
+      labels:
+        app: octank-fintech-k8s
+    spec:
+      containers:
+        - image: texanraj/hello-kubernetes:1.8
+          name: octank-fintech-app
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MESSAGE
+              value: Welcome to Octank Fintech Unit Fronend App! - Hello AWS!
