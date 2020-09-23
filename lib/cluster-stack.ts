@@ -12,14 +12,14 @@ export class ClusterStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    const primaryRegion = 'us-east-2';
+    const primaryRegion = 'us-east-1';
 
     const clusterAdmin = new iam.Role(this, 'AdminRole', {
       assumedBy: new iam.AccountRootPrincipal()
       });
 
-      const cluster = new eks.Cluster(this, 'octank-fintech-cluster', {
-        clusterName: `octankeks`,
+      const cluster = new eks.Cluster(this, 'jenkins-eks-cluster', {
+        clusterName: `jenkinseks`,
         mastersRole: clusterAdmin,
         version: eks.KubernetesVersion.V1_17,
         defaultCapacityInstance: cdk.Stack.of(this).region==primaryRegion? 
