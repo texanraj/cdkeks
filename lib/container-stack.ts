@@ -13,6 +13,13 @@ export class ContainerStack extends cdk.Stack {
     readYamlFromDir(commonFolder, cluster);
     readYamlFromDir(regionFolder, cluster);
    
+    const stable = 'https://kubernetes-charts.storage.googleapis.com/';
+
+    cluster.addChart(`jenkins`, {
+      repository: stable,
+      chart: 'jenkins',
+      release: 'jenkins'
+    });
 
   }
 
